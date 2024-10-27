@@ -7,9 +7,6 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Features](#features)
-  - [Completed Features](#completed-features)
-  - [Upcoming Features](#upcoming-features)
 - [Demo](#demo)
 - [Technologies](#technologies)
 - [Prerequisites](#prerequisites)
@@ -24,22 +21,6 @@
 ## Introduction
 
 **PricePal** is an open-source, full-stack MERN (MongoDB, Express, React, Node.js) application designed to help users find the best prices for items across various stores. The frontend is built using **React Native** with **Expo Router**, providing a seamless mobile experience, while the backend handles data scraping, database management, and more.
-
-## Features
-
-### Completed Features
-
-- **Browse Items:** View a list of items available for comparison.
-- **Add to Cart:** Easily add desired items to your cart(Backend).
-- **Price Comparison:** Compare prices of items in your cart across different stores to find the cheapest options(Backend).
-
-### Upcoming Features
-
-- **Real-Time Updates:** Implement live price updates and notifications.
-- **Price Comparison:** (Frontend).
-- **Add to Cart:** (Frontend)
-- **Multi-Language Support:** Expand accessibility by supporting multiple languages.
-- **User Authentication:** Secure login and registration for personalized experiences.
 
 ## Demo
 
