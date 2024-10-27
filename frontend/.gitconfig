@@ -1,0 +1,1 @@
+git config --global alias.push-frontend "subtree push --prefix=frontend origin main"

@@ -1,3 +1,0 @@
-[alias]
-    push-backend = "!git subtree push --prefix=backend origin main"
-    push-frontend = "!git subtree push --prefix=frontend origin main"
