@@ -6,6 +6,7 @@
 
 ## Table of Contents
 
+- [About Me](#about-me)
 - [Introduction](#introduction)
 - [Demo](#demo)
 - [Technologies](#technologies)
@@ -17,6 +18,14 @@
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
+
+## About Me
+
+Hello! I'm Matin, the creator of **PricePal**. You can learn more about me and my projects on my website: [matin.codes](https://matin.codes).
+
+I developed PricePal to address the common frustration of finding the best prices across multiple stores. By leveraging the MERN stack and modern mobile technologies, I aim to provide users with a seamless and efficient shopping experience.
+
+Feel free to reach out through GitHub or visit my website for more information!
 
 ## Introduction
 
