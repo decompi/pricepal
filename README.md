@@ -4,6 +4,9 @@
 ![Issues](https://img.shields.io/github/issues/decompi/pricepal)
 ![Stars](https://img.shields.io/github/stars/decompi/pricepal?style=social)
 
+https://github.com/user-attachments/assets/08ff5e81-494f-4e15-b4b0-6b018a51a04c
+
+
 ## Table of Contents
 
 - [About Me](#about-me)
