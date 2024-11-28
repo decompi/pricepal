@@ -27,7 +27,7 @@ export default function ProductDetailsPage() {
     const [loading, setLoading] = useState(true);
     const [activeSlide, setActiveSlide] = useState(0);
 
-    const { location, stores, permissionStatus, errorMsg } = useLocationAndStores(id as string);
+    //const { location, stores, permissionStatus, errorMsg } = useLocationAndStores(id as string);
 
     useEffect(() => {
         let isMounted = true;
@@ -51,11 +51,11 @@ export default function ProductDetailsPage() {
         };
     }, [id]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (errorMsg) {
             Alert.alert('Location Error', errorMsg);
         }
-    }, [errorMsg]);
+    }, [errorMsg]);*/
 
     if (loading) {
         return (
@@ -128,8 +128,8 @@ export default function ProductDetailsPage() {
                 <Text style={styles.productDescription}>{item.description}</Text>
     
                 {/* Nearest Stores and Distances */}
-                <Text style={styles.sectionTitle}>Nearest Stores</Text>
-                {stores === null ? (
+                {/*<Text style={styles.sectionTitle}>Nearest Stores</Text>*/}
+                {/*stores === null ? (
                     <Text>Searching for nearby stores...</Text>
                 ) : stores.length > 0 ? (
                     stores.map((store, index) => (
@@ -140,7 +140,7 @@ export default function ProductDetailsPage() {
                     ))
                 ) : (
                     <Text>No stores found nearby</Text>
-                )}
+                )*/}
     
                 {/* Add to Cart Button */}
                 <View style={styles.buttonContainer}>

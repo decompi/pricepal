@@ -41,10 +41,12 @@ export const useLocationAndStores = (itemId: string) => {
                 setLocation(currentLocation);
 
                 const { latitude, longitude } = currentLocation.coords;
-                //const fetchedStores = await getStoresByItemAndLocation(itemId, longitude, latitude);
+                const fetchedStores = await getStoresByItemAndLocation(itemId, longitude, latitude);
+                //const fetchedStores : Store[] = [];
+                console.log(fetchedStores)
                 if (!isMounted) return;
 
-                const fetchedStores = [
+                /*const fetchedStores = [
                     {
                         name: "Walmart",
                         distance: 5.2,
@@ -53,7 +55,7 @@ export const useLocationAndStores = (itemId: string) => {
                         storeId: "walmart-123",
                         address: "123 Main St, San Francisco, CA"
                     }
-                ];
+                ];*/
 
                 setStores(fetchedStores.length ? fetchedStores : []);
             } catch (error) {

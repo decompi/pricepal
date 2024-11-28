@@ -12,28 +12,16 @@ import { useRouter, Stack } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { getItems } from "@/services/api";
-import * as Location from 'expo-location';
-
-interface Item {
-  _id: string;
-  name: string;
-  description: string;
-  category: string[];
-  imageUrl: string[];
-  brand: string;
-  storeIds: { [key: string]: string };
-  lastUpdated: string;
-}
+import { getCart, saveCart } from '@/services/api';
+import { Item, CartItem } from '@/services/types';
 
 export default function Page() {
-  const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [items, setItems] = useState<Item[]>([]);
   const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [location, setLocation] = useState<Location.LocationObject | null>(null);
-  const [permissionStatus, setPermissionStatus] = useState<Location.PermissionStatus | null>(null);
+  const [addedToCart, setAddedToCart] = useState<{ [key: string]: boolean}>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,28 +31,6 @@ export default function Page() {
     };
     fetchData();
   }, []);
-
-  /*useEffect(() => {
-      const getLocation = async () => {
-          try {
-              let { status } = await Location.requestForegroundPermissionsAsync();
-              setPermissionStatus(status);
-
-              if (status !== 'granted') {
-                  console.log('Permission to access location was denied');
-                  return;
-              }
-
-              let currentLocation = await Location.getCurrentPositionAsync({
-                  accuracy: Location.Accuracy.Highest,
-              });
-              setLocation(currentLocation);
-          } catch (error) {
-              console.warn("Failed to get location:", error);
-          }
-      };
-      getLocation();
-  }, []); */
 
   useEffect(() => {
     const filtered = items.filter(
@@ -86,6 +52,31 @@ export default function Page() {
       setFilteredItems(filtered);
     }
   };
+
+  const handleAddToCart = async (item: Item) => {
+    try {
+      setAddedToCart((prevState) => ({ ...prevState, [item._id]: true }))
+      let cartItems: CartItem[] = await getCart();
+      const itemIndex = cartItems.findIndex(
+        (cartItem) => cartItem._id === item._id
+      )
+      if (itemIndex === -1) {
+        const cartItem: CartItem = { ...item, quantity: 1 };
+        cartItems.push(cartItem);
+      } else {
+        //cartItems[itemIndex].quantity += 1;
+      }
+  
+      await saveCart(cartItems);
+      setTimeout(() => {
+        setAddedToCart((prevState) => ({ ...prevState, [item._id]: false }));
+      }, 500);
+    } catch (error) {
+      console.warn("Error adding item to cart:", error);
+      setAddedToCart((prevState) => ({ ...prevState, [item._id]: false }));
+    }
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -159,10 +150,25 @@ export default function Page() {
                 <View style={styles.itemDetails}>
                 <Text style={styles.itemName}>{item.name || "Unknown Item"}</Text>
                 {/*<Text style={styles.itemPrice}>${item.price || "N/A"}</Text>*/}
-                <Text style={styles.itemPrice}>${"L-H"}</Text>
-                <TouchableOpacity style={styles.addToCartButton}>
-                    <Text style={styles.addToCartText}>Add to cart</Text>
+                {/*<Text style={styles.itemPrice}>${"L-H"}</Text>*/}
+                <Text style={styles.itemPrice}>≈ ${item.staticPrice || "N/A"}</Text>
+                <TouchableOpacity
+                  style={[
+                    styles.addToCartButton,
+                    addedToCart[item._id] && styles.addedToCartButton,
+                  ]}
+                  onPress={() => handleAddToCart(item)}
+                >
+                  <Text
+                    style={[
+                      styles.addToCartText,
+                      addedToCart[item._id] && styles.addedToCartButton,
+                    ]}
+                  >
+                    {addedToCart[item._id] ? "Added to cart" : "Add to cart"}
+                  </Text>
                 </TouchableOpacity>
+
             </View>
             <View style={styles.imageContainer}>
             <Image
@@ -292,4 +298,11 @@ const styles = StyleSheet.create({
     color: Colors.tertiary,
     fontWeight: "500",
   },
+  addedToCartButton: {
+    backgroundColor: "#1568c1",
+  },
+  addedToCartText: {
+    color: "fff"
+  }
 });
+//#1568c1
